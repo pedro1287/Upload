@@ -1939,7 +1939,7 @@ async def upload_token(zips,token,url,path,usid,msg,username):
         async with session.get(url, ssl=False) as response:
             if response.status == 200:
                 await msg.edit("**Nube Activa**")
-                await msg.delete()
+
                 pass
             else:
                 await msg.edit("**Nube Caida**")
