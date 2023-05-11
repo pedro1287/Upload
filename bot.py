@@ -1948,6 +1948,11 @@ async def upload_token(zips,token,url,path,usid,msg,username):
     zipssize = 1024*1024*int(zips)
     size = os.path.getsize(path)/(1024 * 1024)
     size = round(size, 2)
+    file_name = os.path.basename(path)
+
+    await msg.edit(f"**Comprimiendo 📂 {file_name}**")
+
+    files = sevenzip(path,volume=zipssize)
     xdlink = " "
     if filesize-1048>zipssize:
         file_name = os.path.basename(path)
