@@ -1935,7 +1935,7 @@ async def upload_token(zips,token,url,path,usid,msg,username):
             else:
                 await msg.edit("**Proxy caido Caida**")
                 return
-        await edit.msg("**Verificando Nube☁️**")
+        await msg.edit("**Verificando Nube☁️**")
         async with session.get(url, ssl=False) as response:
             if response.status == 200:
                 await msg.edit("**Nube Activa**")
