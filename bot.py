@@ -1954,10 +1954,10 @@ async def upload_token(zips,token,url,path,usid,msg,username):
         files = sevenzip(path,volume=zipssize)
         for path in files:
             name_parte = os.path.basename(file)
-            xdlink += await uploadtoken(token,url,path,usid,msg,username):
+            xdlink += await uploadtoken(token,url,path,usid,msg,username)
         await bot.send:message(username, xdlink)
     else:
-        xdlink += await uploadtoken(token,url,path,usid,msg,username):
+        xdlink += await uploadtoken(token,url,path,usid,msg,username)
         await bot.send:message(username, xdlink)
         
 async def uploadtoken(token,url,path,usid,msg,username):
