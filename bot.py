@@ -1926,7 +1926,7 @@ async def upload_uci(path,usid,msg,username):
 ########################################
 async def upload_token(zips,token,url,path,usid,msg,username):
     msg = await bot.send_message(username, "**Verificando Proxy**")
-    proxy = Configs["proxy"]8
+    proxy = Configs["proxy"]
     async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
         async with session.get("https://www.google.com/", ssl=False) as response:
             if response.status == 200:
