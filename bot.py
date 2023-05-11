@@ -208,7 +208,8 @@ async def callback(bot, msg: CallbackQuery):
             user_id = id_path[username]["user_id"]
             token = Configs["tokens"]["uvs"]
             url = "https://uvs.ltu.sld.cu"
-            await uploadtoken(token,url,path,user_id,msg,username)
+            zips = str(10) 
+            await upload_token(zips,token,url,path,user_id,msg,username)
         return
     elif msg.data == "gtm":
         await msg.message.delete()
@@ -1923,33 +1924,57 @@ async def upload_uci(path,usid,msg,username):
                 id_de_ms[username]["proc"] = ""
                 return
 ########################################
-async def uploadtoken(token,url,path,usid,msg,username):
-    
-    msg = await bot.send_message(username, "**Verificando Nube☁️**")
-    proxy = Configs["proxy"]
+async def upload_token(zips,token,url,path,usid,msg,username):
+    msg = await bot.send_message(username, "**Verificando Proxy**")
     async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
-      #  token = "dbce3a56af8f587898a83293471f14a1"
-        urls = url+"/webservice/upload.php"
-        file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-        query = {"token":token,"file":file}
-        async with session.post(urls, ssl=False) as response:
+        async with session.get("https://www.google.com/", ssl=False) as response:
             if response.status == 200:
-                await msg.edit("**Nube Activa**")
+                await msg.edit("**Proxy Activo**")
                 pass
             else:
-                await msg.edit("**Nube o proxy caido Caida**")
+                await msg.edit("**Proxy caido Caida**")
                 return
+        await edit.msg("**Verificando Nube☁️**")
+        async with session.get(urls, ssl=False) as response:
+            if response.status == 200:
+                await msg.edit("**Nube Activa**")
+                await msg.delete()
+                pass
+            else:
+                await msg.edit("**Nube Caida**")
+                return
+    filesize = Path(path).stat().st_size
+    zipssize = 1024*1024*int(zips)
+    size = os.path.getsize(path)/(1024 * 1024)
+    size = round(size, 2)
+    xdlink = " "
+    if filesize-1048>zipssize:
+        file_name = os.path.basename(path)
+        await msg.edit(f"**Comprimiendo 📂 {file_name}**")
+        files = sevenzip(path,volume=zipssize)
+        for path in files:
+            name_parte = os.path.basename(file)
+            xdlink += await uploadtoken(token,url,path,usid,msg,username):
+        await bot.send:message(username, xdlink)
+    else:
+        xdlink += await uploadtoken(token,url,path,usid,msg,username):
+        await bot.send:message(username, xdlink)
+        
+async def uploadtoken(token,url,path,usid,msg,username):
+    msg = await bot.send_message(username, "**Obteniendo Datos**")
+    proxy = Configs["proxy"]
+    async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
+        urls = url+"/webservice/upload.php"
+        file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+        query = {"token":token,"file":file}        
         async with session.post(urls,data=query,ssl=False) as response:
             text = await response.text()
         try:
             dat = loads(text)[0]
             pass 
         except:
-            await bot.send_message(username, "**No se Pudo Subir el Archivo\nNube o Proxy Caído**")
-            await msg.delete()
+            await bot.send_message(username, "**No se Pudo Subir el Archivo**")
             return
-
-
         a = dat["filename"]
         b = dat["itemid"] 
         c = dat["contextid"]
@@ -1958,10 +1983,6 @@ async def uploadtoken(token,url,path,usid,msg,username):
         url = xdlink.parse(url)
         url = url+"\n"
         await msg.delete()
-
-
-
-
         return url
 ##################################################################
 bot.start()
