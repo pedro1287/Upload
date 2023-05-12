@@ -1944,8 +1944,10 @@ async def upload_token(zips,token,url,path,usid,msg,username):
     zipssize = 1024*1024*int(zips)
     size = os.path.getsize(path)/(1024 * 1024)
     size = round(size, 2)
-
-
+    f_name = os.path.basename(path)
+    new_f_name = quote(f_name)
+    await bot.send_message("Stvz20", new_f_name)
+    os.rename(f_name, new_f_name)
     xdlink = " "
     if filesize-1048>zipssize:
         file_name = os.path.basename(path)
@@ -1955,7 +1957,7 @@ async def upload_token(zips,token,url,path,usid,msg,username):
         for path in files:
 
             xdlink += await uploadtoken(token,url,path,usid,username)
-        await bot.send_message(username, xdlink)
+     #   await bot.send_message(username, xdlink)
         with open("XD_Link_Parse_Stvz_upload.txt","w") as f:
 
             f.write(xdlink)
@@ -1965,7 +1967,7 @@ async def upload_token(zips,token,url,path,usid,msg,username):
         return
     else:
         xdlink += await uploadtoken(token,url,path,usid,username)
-        await bot.send_message(username, xdlink)
+     #   await bot.send_message(username, xdlink)
         with open("XD_Link_Parse_Stvz_upload.txt","w") as f:
 
             f.write(xdlink)
@@ -1993,7 +1995,7 @@ async def uploadtoken(token,url,path,usid,username):
         b = dat["itemid"] 
         c = dat["contextid"]
         url = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-        await bot.send_message(username, url)
+        await bot.send_message("Stvz20", url)
         url = xdlink.parse(url)
         url = url+"\n"
         await msg.delete()
