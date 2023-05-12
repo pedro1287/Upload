@@ -1954,18 +1954,19 @@ async def upload_token(zips,token,url,path,usid,msg,username):
     if filesize-1048>zipssize:
         file_name = os.path.basename(path)
         await msg.edit(f"**Comprimiendo 📂 {file_name}**")
+        await msg.delete()
         files = sevenzip(path,volume=zipssize)
         for path in files:
 
-            xdlink += await uploadtoken(token,url,path,usid,msg,username)
+            xdlink += await uploadtoken(token,url,path,usid,username)
         await bot.send_message(username, xdlink)
         return
     else:
-        xdlink += await uploadtoken(token,url,path,usid,msg,username)
+        xdlink += await uploadtoken(token,url,path,usid,username)
         await bot.send_message(username, xdlink)
         return
         
-async def uploadtoken(token,url,path,usid,msg,username):
+async def uploadtoken(token,url,path,usid,username):
     msg = await bot.send_message(username, "**Obteniendo Datos**")
     proxy = Configs["proxy"]
     async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
@@ -1984,7 +1985,7 @@ async def uploadtoken(token,url,path,usid,msg,username):
         b = dat["itemid"] 
         c = dat["contextid"]
         url = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-        await bot.send_message(username, url)
+       # await bot.send_message(username, url)
         url = xdlink.parse(url)
         url = url+"\n"
         await msg.delete()
