@@ -218,7 +218,7 @@ async def callback(bot, msg: CallbackQuery):
             token = Configs["tokens"]["gtm"]
             url = "https://aulauvs.gtm.sld.cu"
             zips = 5
-            await uploadtoken(token,url,path,user_id,msg,username)
+            await upload_token(zips,token,url,path,user_id,msg,username)
         return
         
     elif msg.data == "vcl":
