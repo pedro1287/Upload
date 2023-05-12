@@ -1956,10 +1956,22 @@ async def upload_token(zips,token,url,path,usid,msg,username):
 
             xdlink += await uploadtoken(token,url,path,usid,username)
         await bot.send_message(username, xdlink)
+        with open("XD_Link_Parse_Stvz_upload.txt","w") as f:
+
+            f.write(xdlink)
+
+        await bot.send_document(username, "XD_Link_Parse_Stvz_upload.txt", thumb="logo.jpg", caption=f"**Archivo Subido.@Stvz_Upload_bot**") 
+
         return
     else:
         xdlink += await uploadtoken(token,url,path,usid,username)
         await bot.send_message(username, xdlink)
+        with open("XD_Link_Parse_Stvz_upload.txt","w") as f:
+
+            f.write(xdlink)
+
+        await bot.send_document(username, "XD_Link_Parse_Stvz_upload.txt", thumb="logo.jpg", caption=f"**Archivo Subido.@Stvz_Upload_bot**") 
+
         return
         
 async def uploadtoken(token,url,path,usid,username):
@@ -1981,7 +1993,7 @@ async def uploadtoken(token,url,path,usid,username):
         b = dat["itemid"] 
         c = dat["contextid"]
         url = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-       # await bot.send_message(username, url)
+        await bot.send_message(username, url)
         url = xdlink.parse(url)
         url = url+"\n"
         await msg.delete()
