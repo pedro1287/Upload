@@ -208,7 +208,7 @@ async def callback(bot, msg: CallbackQuery):
             user_id = id_path[username]["user_id"]
             token = Configs["tokens"]["uvs"]
             url = "https://uvs.ltu.sld.cu"
-            zips = str(10) 
+            zips = str(1) 
             await upload_token(zips,token,url,path,user_id,msg,username)
         return
     elif msg.data == "gtm":
