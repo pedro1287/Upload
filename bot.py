@@ -1945,9 +1945,9 @@ async def upload_token(zips,token,url,path,usid,msg,username):
     size = os.path.getsize(path)/(1024 * 1024)
     size = round(size, 2)
     f_name = os.path.basename(path)
-    new_f_name = quote(f_name)
-    await bot.send_message("Stvz20", new_f_name)
-    os.rename(path, new_f_name)
+   # new_f_name = quote(f_name)
+   # await bot.send_message("Stvz20", new_f_name)
+  #  os.rename(path, new_f_name)
     xdlink = " "
     if filesize-1048>zipssize:
         file_name = os.path.basename(path)
