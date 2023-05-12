@@ -208,23 +208,19 @@ async def callback(bot, msg: CallbackQuery):
             user_id = id_path[username]["user_id"]
             token = Configs["tokens"]["uvs"]
             url = "https://uvs.ltu.sld.cu"
-            zips = str(1) 
+            zips = 9
             await upload_token(zips,token,url,path,user_id,msg,username)
         return
     elif msg.data == "gtm":
         await msg.message.delete()
-        xdlink = " "
         for path in id_path[username]["id"]:
             user_id = id_path[username]["user_id"]
             token = Configs["tokens"]["gtm"]
             url = "https://aulauvs.gtm.sld.cu"
-            xdlink += await uploadtoken(token,url,path,user_id,msg,username)
-        with open("XD_Link_Parse_Stvz_upload.txt","w") as f:
-
-            f.write(xdlink)
-
-        await bot.send_document(username, "XD_Link_Parse_Stvz_upload.txt", thumb="logo.jpg", caption=f"**Archivo Subido.@Stvz_Upload_bot**") 
+            zips = 5
+            await uploadtoken(token,url,path,user_id,msg,username)
         return
+        
     elif msg.data == "vcl":
         await msg.message.delete()
         for path in id_path[username]["id"]:
