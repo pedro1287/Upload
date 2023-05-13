@@ -91,6 +91,44 @@ def uploadfile_progres(chunk,filesize,start,filename,message):
         message.edit(msg, reply_markup=cancelar)
     seg = localtime().tm_sec
     
+import re
+
+def limpiar_texto(texto):
+
+    texto_limpio = re.sub(r'[^\w\s]','',texto) 
+
+    texto_limpio = texto_limpio.replace('á', 'a')
+
+    texto_limpio = texto_limpio.replace('é', 'e')
+
+    texto_limpio = texto_limpio.replace('í', 'i')
+
+    texto_limpio = texto_limpio.replace('ú', 'u')
+
+    texto_limpio = texto_limpio.replace('ñ', 'n')
+
+    texto_limpio = texto_limpio.replace('Á', 'A')
+
+    texto_limpio = texto_limpio.replace('É', 'E')
+
+    texto_limpio = texto_limpio.replace('Í', 'I')
+
+    texto_limpio = texto_limpio.replace('Ú', 'U')
+
+    texto_limpio = texto_limpio.replace('Ñ', 'N')
+
+    texto_limpio = texto_limpio.replace(' ', '_') 
+
+    ultima_punto = texto.rfind('.') 
+
+    if ultima_punto != -1:
+
+        extension = texto[ultima_punto:] 
+
+        texto_limpio += extension 
+
+    return texto_limpio
+
 
 class Progress(BufferedReader):
     def __init__(self, filename, read_callback):
@@ -902,29 +940,7 @@ async def delete_draft_y_down_media(client: Client, message: Message):
             filesize = int(str(i).split('"file_size":')[1].split(",")[0])
             try:
                 filename = str(i).split('"file_name": ')[1].split(",")[0].replace('"',"")
-                filename = filename.replace("'", "_")
-                filename = filename.replace("á", "_")
-                filename = filename.replace("é", "_")
-                filename = filename.replace(" ", "_")
-                filename = filename.replace("í", "_")
-                filename = filename.replace("ó", "_") 	
-                filename = filename.replace("ú", "_")
-                filename = filename.replace("Á", "_")
-                filename = filename.replace("É", "_")
-                filename = filename.replace("Í", "_")
-                filename = filename.replace("Ó", "_")
-                filename = filename.replace("Ú", "_")
-                filename = filename.replace("@", "_")
-                filename = filename.replace(",", "_")
-                filename = filename.replace("#", "_")
-                filename = filename.replace("?", "_")
-                filename = filename.replace("(", "_")
-                filename = filename.replace(")", "_")
-                filename = filename.replace("!", "_")
-                filename = filename.replace("-", "")
-                filename = filename.replace(",", "_")
-                filename = filename.replace("$", "_")
-                filename = quote(filename)
+                filename = limpiar_texto(filename)
             except:filename = str(randint(11111,999999))+".mp4"
         #    await bot.send_message(Channel_Id,f'**@{username} Envio un #archivo:**\n**Filename:** {filename}\n**Size:** {sizeof_fmt(filesize)}')	
             start = time()		
