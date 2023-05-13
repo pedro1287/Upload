@@ -75,15 +75,9 @@ id_path = {}
 
 #####
 def uploadfile_progres(chunk,filesize,start,filename,message):
-    total = shutil.disk_usage(os.getcwd())[0]
-
-	used = shutil.disk_usage(os.getcwd())[1]
-
-	free = shutil.disk_usage(os.getcwd())[2]	
-
-	uname = platform.uname()
-
-	svmem = psutil.virtual_memory()
+  #  total = shutil.disk_usage(os.getcwd())[0]
+  #  used = shutil.disk_usage(os.getcwd())[1]
+	
     uptime = get_readable_time(time() - startt)
     now = time()
     diff = now - start
@@ -98,7 +92,7 @@ def uploadfile_progres(chunk,filesize,start,filename,message):
     msg+= f"**⌛UpTimeBoT: {uptime}**"
     msg+= f"**System Info**\n"
     msg += f"➣CPU Usado: **{psutil.cpu_percent()}%**\n"
-    msg+= f"➣RAM ~~~Total: **{sizeof_fmt(svmem.total)} | Free: {sizeof_fmt(svmem.available)} | Usada: {sizeof_fmt(svmem.used)}**\n"
+ #   msg+= f"➣RAM ~~~Total: **{sizeof_fmt(svmem.total)} | Free: {sizeof_fmt(svmem.available)} | Usada: {sizeof_fmt(svmem.used)}**\n"
     global seg
     if seg != localtime().tm_sec: 
         message.edit(msg, reply_markup=cancelar)
