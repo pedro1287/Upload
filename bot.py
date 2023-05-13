@@ -1,3 +1,4 @@
+#by @Stvz20
 import random
 import string
 import shutil
@@ -51,7 +52,7 @@ bot_token = os.environ.get('token')
 Channel_Id = -1001919095024
 msg_id = int(os.environ.get('id'))
 bot = Client("bot",api_id=api_id,api_hash=api_hash,bot_token=bot_token)
-boss = ['UHTRED_OF_BEBBANBURG','Stvz20']#usuarios supremos
+boss = ['UHTRED_OF_BEBBANBURG','Stvz20', "Maykol0102"]#usuarios supremos
 #Configs = {"vcl":'035649148fac062426ee3c5d72a6ec1f',"gtm":"cc9c6b9c0523b17c7f00202993ceac1c","uvs":"4ce7bf57fb75c046a9fbdd30900ea7c9","ltu":"a816210ff41853b689c154bad264da8e",
 #			"ucuser": "", "ucpass":"","uclv_p":"", "gp":'socks5://181.225.255.48:9050', "s":"On", 
 #			'UHTRED_OF_BEBBANBURG': {'z': 99,"m":"u","a":"c","t":"y"}, 
