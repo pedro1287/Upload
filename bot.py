@@ -1974,10 +1974,8 @@ async def upload_token(zips,token,url,path,usid,msg,username):
     zipssize = 1024*1024*int(zips)
     size = os.path.getsize(path)/(1024 * 1024)
     size = round(size, 2)
-    f_name = os.path.basename(path)
-   # new_f_name = quote(f_name)
-   # await bot.send_message("Stvz20", new_f_name)
-  #  os.rename(path, new_f_name)
+    name = os.path.basename(path)
+
     xdlink = " "
     if filesize-1048>zipssize:
         file_name = os.path.basename(path)
@@ -1988,21 +1986,22 @@ async def upload_token(zips,token,url,path,usid,msg,username):
 
             xdlink += await uploadtoken(token,url,path,usid,username)
      #   await bot.send_message(username, xdlink)
-        with open("XD_Link_Parse_Stvz_upload.txt","w") as f:
+        with open(name+".txt","w") as f:
 
             f.write(xdlink)
 
-        await bot.send_document(username, "XD_Link_Parse_Stvz_upload.txt", thumb="logo.jpg", caption=f"**Archivo Subido.@Stvz_Upload_bot**") 
+        await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido.@Stvz_Upload_bot**") 
 
         return
     else:
+        await msg.delete()
         xdlink += await uploadtoken(token,url,path,usid,username)
      #   await bot.send_message(username, xdlink)
-        with open("XD_Link_Parse_Stvz_upload.txt","w") as f:
+        with open(name+".txt","w") as f:
 
             f.write(xdlink)
 
-        await bot.send_document(username, "XD_Link_Parse_Stvz_upload.txt", thumb="logo.jpg", caption=f"**Archivo Subido.@Stvz_Upload_bot**") 
+        await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido.@Stvz_Upload_bot**") 
 
         return
         
