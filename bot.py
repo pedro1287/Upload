@@ -87,6 +87,9 @@ def uploadfile_progres(chunk,filesize,start,filename,message):
     msg+= f"**💾 Total:  {sizeof_fmt(filesize)}**\n\n"
     msg+= f"**Gracias Por Elegir @Stvz_Upload_bot ❤️**\n\n"
     msg+= f"**⌛UpTimeBoT: {uptime}**"
+    msg+= "**System Info**\n
+    msg += f"➣CPU Usado: **{psutil.cpu_percent()}%**\n"
+    msg+= f"➣RAM ~~~Total: **{sizeof_fmt(svmem.total)}** | Free: **{sizeof_fmt(svmem.available)}** | Usada: **{sizeof_fmt(svmem.used)}**\n"
     global seg
     if seg != localtime().tm_sec: 
         message.edit(msg, reply_markup=cancelar)
