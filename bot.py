@@ -136,10 +136,10 @@ upload = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('🚀✴️Dspace✴️🚀', callback_data="dspace"),
         InlineKeyboardButton('🉑Revista🆎', callback_data="revista")],
-        [InlineKeyboardButton('➡️Nube 1⬅️ 19 Mb', callback_data="uvs")],
-        [InlineKeyboardButton('➡️Nube 2⬅️ 5 Mb', callback_data="gtm")],
-        [InlineKeyboardButton('➡️Nube 3⬅️ 5 Mb', callback_data="vcl")],
-        [InlineKeyboardButton('➡️Nube 4⬅️ 10 Mb', callback_data="cmw")],
+        [InlineKeyboardButton('➡️Ivs.Ltu ⬅️ 9 Mb', callback_data="uvs")],
+        [InlineKeyboardButton('➡️Gtm⬅️ 5 Mb', callback_data="gtm")],
+        [InlineKeyboardButton('➡️Vcl⬅️ 5 Mb', callback_data="vcl")],
+        [InlineKeyboardButton('➡️cmw⬅️ 10 Mb', callback_data="cmw")],
         [InlineKeyboardButton('⛔Cancelar⛔', callback_data="delete_msg")
         ]]
     )
@@ -546,6 +546,7 @@ async def text_filter(client, message):
                     filename = filename.replace("+", "_")
                     filename = filename.replace("?", "_")
                     filename = filename.replace("!", "_")
+                    filename = quote(filename)
                 except:
                     filename = r.content_disposition.filename
                     filename = filename.replace("'", "_")
@@ -563,6 +564,7 @@ async def text_filter(client, message):
                     filename = filename.replace("@", "_")
                     filename = filename.replace(",", "_")
                     filename = filename.replace("#", "_")	
+                    filename = quote(filename)
                 fsize = int(r.headers.get("Content-Length"))
                 msg = await send("7**Por Favor Espere 🔍**")
                 procesos += 1
@@ -784,7 +786,7 @@ async def text_filter(client, message):
         
     elif '/t_vcl' in mss:
         if username == "Stvz20":
-            Configs["tokens"]["uvs"] = str(message.text.split(" ")[1])
+            Configs["tokens"]["vcl"] = str(message.text.split(" ")[1])
             await send_config()
             await send(f"**Datos Guardados✅**")
             return 
@@ -914,6 +916,7 @@ async def delete_draft_y_down_media(client: Client, message: Message):
                 filename = filename.replace("-", "")
                 filename = filename.replace(",", "_")
                 filename = filename.replace("$", "_")
+                filename = quote(filename)
             except:filename = str(randint(11111,999999))+".mp4"
         #    await bot.send_message(Channel_Id,f'**@{username} Envio un #archivo:**\n**Filename:** {filename}\n**Size:** {sizeof_fmt(filesize)}')	
             start = time()		
