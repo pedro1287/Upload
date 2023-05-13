@@ -227,7 +227,8 @@ async def callback(bot, msg: CallbackQuery):
             user_id = id_path[username]["user_id"]
             token = Configs["tokens"]["vcl"]
             url = "https://www.aula.vcl.sld.cu"
-            await uploadtoken(token,url,path,user_id,msg,username)
+            zips = 5
+            await uploadtoken(zips,token,url,path,user_id,msg,username)
         return
     elif msg.data == "cmw":
         await msg.message.delete()
@@ -235,7 +236,8 @@ async def callback(bot, msg: CallbackQuery):
             user_id = id_path[username]["user_id"]
             token = Configs["tokens"]["cmw"]
             url = "https://uvs.ucm.cmw.sld.cu"
-            await uploadtoken(token,url,path,user_id,msg,username)
+            zips = 5
+            await uploadtoken(zips,token,url,path,user_id,msg,username)
         return
     elif msg.data == "delete_msg":
         await msg.message.delete()
