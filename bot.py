@@ -181,10 +181,10 @@ upload = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('🚀✴️Dspace✴️🚀', callback_data="dspace"),
         InlineKeyboardButton('🉑Revista🆎', callback_data="revista")],
-        [InlineKeyboardButton('➡️Ivs.Ltu ⬅️ 9 Mb', callback_data="uvs")],
-        [InlineKeyboardButton('➡️Gtm⬅️ 5 Mb', callback_data="gtm")],
-        [InlineKeyboardButton('➡️Vcl⬅️ 5 Mb', callback_data="vcl")],
-        [InlineKeyboardButton('➡️cmw⬅️ 10 Mb', callback_data="cmw")],
+        [InlineKeyboardButton('☁️ Ｕｖｓ.Ｌｔｕ ☁️ 9️⃣ Mb', callback_data="uvs")],
+        [InlineKeyboardButton('☁️ ᏀᎢᗰ ☁️ 5️⃣ Mb', callback_data="gtm")],
+        [InlineKeyboardButton('☁️ ᐯᑕし ☁️ 5️⃣ Mb', callback_data="vcl")],
+        [InlineKeyboardButton('☁️ ᑕᗰᗯ ☁️ 1️⃣0️⃣Mb', callback_data="cmw")],
         [InlineKeyboardButton('⛔Cancelar⛔', callback_data="delete_msg")
         ]]
     )
@@ -2026,7 +2026,10 @@ async def uploadtoken(token,url,path,usid,username):
             dat = loads(text)[0]
             pass 
         except:
+		
             await bot.send_message(username, "**No se Pudo Subir el Archivo**")
+	
+	
             return
         a = dat["filename"]
         b = dat["itemid"] 
