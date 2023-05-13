@@ -228,7 +228,7 @@ async def callback(bot, msg: CallbackQuery):
             token = Configs["tokens"]["vcl"]
             url = "https://www.aula.vcl.sld.cu"
             zips = 5
-            await uploadtoken(zips,token,url,path,user_id,msg,username)
+            await upload_token(zips,token,url,path,user_id,msg,username)
         return
     elif msg.data == "cmw":
         await msg.message.delete()
@@ -237,7 +237,7 @@ async def callback(bot, msg: CallbackQuery):
             token = Configs["tokens"]["cmw"]
             url = "https://uvs.ucm.cmw.sld.cu"
             zips = 5
-            await uploadtoken(zips,token,url,path,user_id,msg,username)
+            await upload_token(zips,token,url,path,user_id,msg,username)
         return
     elif msg.data == "delete_msg":
         await msg.message.delete()
@@ -628,6 +628,12 @@ async def text_filter(client, message):
         await bot.send_photo(username,"logo.jpg",caption="`Hola 👋🏻 a Stvz20_Upload, Bienvenido a este sistema de Descargas, estamos simpre para tí, y ayudarte a descagar cualquier archivo multimedia que desees☺️\nPara empezar envié un archivo o enlaces para procesar(Youtube, Twich, mediafire entre otros soportes`",
             reply_markup=hom)
         
+   # elif '/status_cloud' in mss:
+     #   msg = send('**Por Favor Espere...**')
+     #  lista = ['https://uvs.ltu.sld.cu']
+        
+     #   for nube in lista:
+            
     elif '/del_files_all' in mss:
         msg = await bot.send_message(username, "...")
         await delete_rev(username,msg)  
