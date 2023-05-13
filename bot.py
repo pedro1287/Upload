@@ -75,6 +75,15 @@ id_path = {}
 
 #####
 def uploadfile_progres(chunk,filesize,start,filename,message):
+    total = shutil.disk_usage(os.getcwd())[0]
+
+	used = shutil.disk_usage(os.getcwd())[1]
+
+	free = shutil.disk_usage(os.getcwd())[2]	
+
+	uname = platform.uname()
+
+	svmem = psutil.virtual_memory()
     uptime = get_readable_time(time() - startt)
     now = time()
     diff = now - start
