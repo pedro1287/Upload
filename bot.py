@@ -686,6 +686,7 @@ async def text_filter(client, message):
          
     elif '/rename' in mss:
         h = root[username]["actual_root"]
+        await send(h)
         lista = message.text.split(" ")
         name1 = int(lista[1])
         name2 = lista[2]
