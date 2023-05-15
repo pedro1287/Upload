@@ -1989,13 +1989,13 @@ async def upload_token(zips,token,url,path,usid,msg,username):
         await msg.delete()
         files = sevenzip(path,volume=zipssize)
         for path in files:
-	    xdlink += uploadtoken(token,url,path,usid,username)
+	    xdlink += await uploadtoken(token,url,path,usid,username)
 	with open(name+".txt","w") as f:
 	    f.write(xdlink)
 	await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
 	return
     else:
-        xdlink += uploadtoken(token,url,path,usid,username)
+        xdlink += await uploadtoken(token,url,path,usid,username)
         with open(name+".txt","w") as f:
             f.write(xdlink)
         await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
