@@ -2064,7 +2064,6 @@ async def upload_token(zips,token,url,path,usid,msg,username):
             with open(name+".txt","w") as f:
                 f.write(xdlink)
             await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
-	    await msg.delete()
             return
     else:
 	async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
