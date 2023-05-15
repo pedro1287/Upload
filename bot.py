@@ -2055,16 +2055,10 @@ async def upload_token(zips,token,url,path,usid,msg,username):
                 b = dat["itemid"] 
                 c = dat["contextid"]
                 urls = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-	  #  if "ltu" in url:
-              #  url = xdlink.parse(urls)
-            #    url = url+"\n"
-              #  xdlink += url
-	  #  else:
-		
-            with open(name+".txt","w") as f:
-                f.write(xdlink)
-            await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
-            return
+                with open(name+".txt","w") as f:
+                    f.write(xdlink)
+                await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
+                return
     else:
 	async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
             urls = url+"/webservice/upload.php"
