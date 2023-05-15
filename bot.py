@@ -1989,53 +1989,17 @@ async def upload_token(zips,token,url,path,usid,msg,username):
         await msg.delete()
         files = sevenzip(path,volume=zipssize)
         for path in files:
-            async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
-                urls = url+"/webservice/upload.php"
-                file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-                query = {"token":token,"file":file}        
-                async with session.post(urls,data=query,ssl=False) as response:
-                    text = await response.text()
-                try:
-                    dat = loads(text)[0]
-                    pass 
-                except:	
-                    await bot.send_message(username, "**No se Pudo Subir el Archivo**")
-                    return
-                a = dat["filename"]
-                b = dat["itemid"] 
-                c = dat["contextid"]
-                urls = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-                with open(name+".txt","w") as f:
-                    f.write(xdlink)
-                await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
-                return
+	    xdlink += uploadtoken(token,url,path,usid,username)
+	with open(name+".txt","w") as f:
+	    f.write(xdlink)
+	await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
+	return
     else:
-	async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
-            urls = url+"/webservice/upload.php"
-            file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-            query = {"token":token,"file":file}        
-            async with session.post(urls,data=query,ssl=False) as response:
-                text = await response.text()
-            try:
-                dat = loads(text)[0]
-                pass 
-            except:	
-                await bot.send_message(username, "**No se Pudo Subir el Archivo**")
-                return
-            a = dat["filename"]
-            b = dat["itemid"] 
-            c = dat["contextid"]
-            urls = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-	if "ltu" in url:
-            url = xdlink.parse(urls)
-            url = url+"\n"
-            xdlink += url
-	else:
-	    xdlink += urls
+        xdlink += uploadtoken(token,url,path,usid,username)
         with open(name+".txt","w") as f:
             f.write(xdlink)
         await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
-	await msg.delete()
+        await msg.delete()
         return
         
 async def uploadtoken(token,url,path,usid,username):
