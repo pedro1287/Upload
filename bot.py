@@ -1956,9 +1956,58 @@ async def upload_uci(path,usid,msg,username):
                 await msg.delete()
                 id_de_ms[username]["proc"] = ""
                 return
-
-async def upload_token(zips,token,url,path,usid,msg,username):
 	
+async def upload_obuo(path,usid,msg,username):
+    msg = await bot.send_message(username, "**Iniciando**")
+    namefile = os.path.basename(path)
+    size = os.path.getsize(path)/(1024 * 1024)
+    size = round(size, 2)
+    await msg.edit("**Iniciando Sesión...**")
+    upload_data = {}
+    upload_data["post_id"] = "0"
+    upload_data["_wpnonce"] = "a0f4c6dae2"
+    upload_data["_wp_http_referer"] = "/wp-admin/media-new.php"
+    upload_data["html-upload"] = "Subir"
+    file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+    upload_data["async-upload"] = fi
+    query = {"async-upload":fi,**upload_data}
+    upload_url = "https://observatorios.uo.edu.cu/wp-admin/media-new.php"
+    data = {
+        "log": "stvz",
+        "pwd": "stvz02-",
+        "rememberme": "forever",
+        "wp-submit": "Acceder",
+        "redirect_to" : "https://observatorios.uo.edu.cu/wp-admin/media-new.php?loggedout=true",
+        "testcookie": "1"
+    }
+    async with aiohttp.ClientSession() as session:
+        async with session.post("https://observatorios.uo.edu.cu/wp-login.php", data=data, ssl=False) as a:
+            text = await a.text()
+            u = str(a.url)
+            if u == "https://observatorios.uo.edu.cu/wp-login.php":
+                await msg.delete()
+                await bot.send_message(username, "**Datos Erroneos de Login\nUse el comando /data_rev para añadir sus datos**")
+                id_de_ms[username]["proc"] = ""
+                return
+            else:pass
+        await msg.edit("**Sesion Iniciada1**✅")
+        async with session.post(upload_url, data=query, ssl=False) as resp:
+            if resp.status == 500 or resp.status == 400:
+                await msg.delete()
+                await bot.send_message(username, "**Nube Llena. Por Favor elimine los archivos subidos 📂n\nPuede usar el comando /del_files_all para eliminar todo del server**")
+                id_de_ms[username]["proc"] = ""
+                return
+            else:pass
+        text = await resp.text()
+        response_json = await resp.json()  
+        file_id = response_json["uploadedFile"]["fileId"]
+        id_sub = response_json["uploadedFile"]["id"]
+        await bot.send_message(username, f"Archivo Subido\nNombre: {namefile}\nTamaño: {filesize}\n`https://stvz.down/a/{id_sub}/{file_id}/{namefile}`")
+        await msg.delete()
+        id_de_ms[username]["proc"] = ""
+        return
+########################################
+async def upload_token(zips,token,url,path,usid,msg,username):
     msg = await bot.send_message(username, "**Verificando Proxy**")
     proxy = Configs["proxy"]
     async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
@@ -2006,12 +2055,12 @@ async def upload_token(zips,token,url,path,usid,msg,username):
                 b = dat["itemid"] 
                 c = dat["contextid"]
                 urls = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-	        if "ltu" in url:
-                    url = xdlink.parse(urls)
-                    url = url+"\n"
-                    xdlink += url
-	        else:
-		    xdlink += urls
+	    if "ltu" in url:
+                url = xdlink.parse(urls)
+                url = url+"\n"
+                xdlink += url
+	    else:
+		xdlink += urls
             with open(name+".txt","w") as f:
                 f.write(xdlink)
             await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
@@ -2034,12 +2083,12 @@ async def upload_token(zips,token,url,path,usid,msg,username):
             b = dat["itemid"] 
             c = dat["contextid"]
             urls = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-	    if "ltu" in url:
-                url = xdlink.parse(urls)
-                url = url+"\n"
-                xdlink += url
-	    else:
-		xdlink += urls
+	if "ltu" in url:
+            url = xdlink.parse(urls)
+            url = url+"\n"
+            xdlink += url
+	else:
+	    xdlink += urls
         with open(name+".txt","w") as f:
             f.write(xdlink)
         await bot.send_document(username, name+".txt", thumb="logo.jpg", caption=f"**Archivo Subido. Nombre: {file_name}\nTamaño: {size}\n\nBy @Stvz_Upload_bot**") 
