@@ -1975,7 +1975,7 @@ async def upload_obuo(path,usid,msg,username):
             "rememberme": "forever",
             "wp-submit": "Acceder",
             "redirect_to" : "https://observatorios.uo.edu.cu/wp-admin/media-new.php?loggedout=true",
-	    "testcookie": "1",
+	    "testcookie": "1"
         }
         async with session.post("https://observatorios.uo.edu.cu/wp-login.php", data=data, ssl=False) as a:
             text = await a.text()
