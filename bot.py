@@ -1990,9 +1990,9 @@ async def upload_token(zips,token,url,path,usid,msg,username):
         files = sevenzip(path,volume=zipssize)
         for path in files:
             async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
-            urls = url+"/webservice/upload.php"
-            file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-            query = {"token":token,"file":file}        
+                urls = url+"/webservice/upload.php"
+                file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+                query = {"token":token,"file":file}        
                 async with session.post(urls,data=query,ssl=False) as response:
                     text = await response.text()
                 try:
