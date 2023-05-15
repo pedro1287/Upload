@@ -1971,10 +1971,11 @@ async def upload_obuo(path,usid,msg,username):
 	upload_data["_wpnonce"] = "a0f4c6dae2"
 	upload_data["_wp_http_referer"] = "/wp-admin/media-new.php"
 	upload_data["html-upload"] = "Subir"
+	file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
 	upload_data["async-upload"] = fi
 	query = {"async-upload":fi,**upload_data}
         upload_url = "https://observatorios.uo.edu.cu/wp-admin/media-new.php"
-	file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+	
         data = {
             "log": "stvz",
             "pwd": "stvz02-",
