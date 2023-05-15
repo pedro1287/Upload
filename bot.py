@@ -1989,13 +1989,13 @@ async def upload_obuo(path,usid,msg,username):
         await msg.edit("**Sesion Iniciada1**✅")
         # Hacer la solicitud anterior
         fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-        upload_data = {}
-        upload_data["post_id"] = "0"
+	upload_data = {}
+	upload_data["post_id"] = "0"
 	upload_data["_wpnonce"] = "a0f4c6dae2"
 	upload_data["_wp_http_referer"] = "/wp-admin/media-new.php"
-        upload_data["html-upload"] = "Subir"
-        upload_data["async-upload"] = fi
-        query = {"async-upload":fi,**upload_data}
+	upload_data["html-upload"] = "Subir"
+	upload_data["async-upload"] = fi
+	query = {"async-upload":fi,**upload_data}
         upload_url = "https://observatorios.uo.edu.cu/wp-admin/media-new.php"
         inic = time()
         async with session.post(upload_url, data=query, ssl=False) as resp:
