@@ -1959,17 +1959,13 @@ async def upload_uci(path,usid,msg,username):
 ########################################
 ###################################################################
 async def upload_obuo(path,usid,msg,username):
-    if "id_del" in Configs[username]:pass
-    else:
-        Configs[username]["id_del"] = [] 
-        await send_config()
     msg = await bot.send_message(username, "**Iniciando**")
     namefile = os.path.basename(path)
     size = os.path.getsize(path)/(1024 * 1024)
     size = round(size, 2)
     await msg.edit("**Iniciando Sesión...**")
     async with aiohttp.ClientSession() as session:
-	fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+#
 	upload_data = {}
 	upload_data["post_id"] = "0"
 	upload_data["_wpnonce"] = "a0f4c6dae2"
@@ -1978,6 +1974,7 @@ async def upload_obuo(path,usid,msg,username):
 	upload_data["async-upload"] = fi
 	query = {"async-upload":fi,**upload_data}
         upload_url = "https://observatorios.uo.edu.cu/wp-admin/media-new.php"
+	file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
         data = {
             "log": "stvz",
             "pwd": "stvz02-",
