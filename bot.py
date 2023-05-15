@@ -1957,33 +1957,30 @@ async def upload_uci(path,usid,msg,username):
                 id_de_ms[username]["proc"] = ""
                 return
 ########################################
-###################################################################
 async def upload_obuo(path,usid,msg,username):
     msg = await bot.send_message(username, "**Iniciando**")
     namefile = os.path.basename(path)
     size = os.path.getsize(path)/(1024 * 1024)
     size = round(size, 2)
     await msg.edit("**Iniciando Sesión...**")
+    upload_data = {}
+    upload_data["post_id"] = "0"
+    upload_data["_wpnonce"] = "a0f4c6dae2"
+    upload_data["_wp_http_referer"] = "/wp-admin/media-new.php"
+    upload_data["html-upload"] = "Subir"
+    file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+    upload_data["async-upload"] = fi
+    query = {"async-upload":fi,**upload_data}
+    upload_url = "https://observatorios.uo.edu.cu/wp-admin/media-new.php"
+    data = {
+        "log": "stvz",
+        "pwd": "stvz02-",
+        "rememberme": "forever",
+        "wp-submit": "Acceder",
+        "redirect_to" : "https://observatorios.uo.edu.cu/wp-admin/media-new.php?loggedout=true",
+        "testcookie": "1"
+    }
     async with aiohttp.ClientSession() as session:
-#
-	upload_data = {}
-	upload_data["post_id"] = "0"
-	upload_data["_wpnonce"] = "a0f4c6dae2"
-	upload_data["_wp_http_referer"] = "/wp-admin/media-new.php"
-	upload_data["html-upload"] = "Subir"
-	file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-	upload_data["async-upload"] = fi
-	query = {"async-upload":fi,**upload_data}
-        upload_url = "https://observatorios.uo.edu.cu/wp-admin/media-new.php"
-	
-        data = {
-            "log": "stvz",
-            "pwd": "stvz02-",
-            "rememberme": "forever",
-            "wp-submit": "Acceder",
-            "redirect_to" : "https://observatorios.uo.edu.cu/wp-admin/media-new.php?loggedout=true",
-	    "testcookie": "1"
-        }
         async with session.post("https://observatorios.uo.edu.cu/wp-login.php", data=data, ssl=False) as a:
             text = await a.text()
             u = str(a.url)
@@ -2011,6 +2008,7 @@ async def upload_obuo(path,usid,msg,username):
             return
 ########################################
 async def upload_token(zips,token,url,path,usid,msg,username):
+	
     msg = await bot.send_message(username, "**Verificando Proxy**")
     proxy = Configs["proxy"]
     async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
