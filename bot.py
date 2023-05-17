@@ -819,7 +819,7 @@ async def text_filter(client, message):
             await send(f"**No Puedes usar este comando**")
             return
     elif '/proxy' in mss:
-        if username == "Stvz20":
+        if username in boss:
             Configs["proxy"] = str(message.text.split(" ")[1])
             await send_config()
             await send(f"**Datos Guardados✅**")
