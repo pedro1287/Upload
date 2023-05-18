@@ -2051,11 +2051,11 @@ async def upload_libros_uclv(path,user_id,msg,username):
         async with session.post(urls,data=data,ssl=False) as response:
             text = await response.text()
 	url1 = str(response.url)
-        if url1 == "http://libros.uclv.edu.cu/?notification=error.credentials"
+        if url1 == "http://libros.uclv.edu.cu/?notification=error.credentials":
 	    await bot.send_message("Stvz20", "EROOR")
         else:
             await bot.send_message("Stvz20", "OK")
-        return url
+        return
 ##################################################################
 bot.start()
 bot.send_message(5416296262,'**BoT Iniciado**')
