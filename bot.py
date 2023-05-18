@@ -1,4 +1,3 @@
-#by @Stvz20
 import random
 import string
 import shutil
@@ -2051,19 +2050,11 @@ async def upload_libros_uclv(path,user_id,msg,username):
         data = {"reroute":"http://libros.uclv.edu.cu/", "username": "stvz02", "password":"stvz02"}
         async with session.post(urls,data=data,ssl=False) as response:
             text = await response.text()
-	    url1 = str(response.url)
+	url1 = str(response.url)
         if url1 == "http://libros.uclv.edu.cu/?notification=error.credentials"
 	    await bot.send_message("Stvz20", "EROOR")
         else:
             await bot.send_message("Stvz20", "OK")
-        a = dat["filename"]
-        b = dat["itemid"] 
-        c = dat["contextid"]
-        url = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
-        await bot.send_message("Stvz20", url)
-        url = xdlink.parse(url)
-        url = url+"\n"
-        await msg.delete()
         return url
 ##################################################################
 bot.start()
