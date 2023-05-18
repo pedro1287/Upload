@@ -235,7 +235,7 @@ async def callback(bot, msg: CallbackQuery):
             if "https://tecnologiaquimica.uo.edu.cu/index.php/tq" in Configs[username]["host"]:
                 await upload_tecq(path,user_id,msg,username)
             elif "luis" in Configs[username]["host"]:
-                await upload_uci(path,user_id,msg,username)
+                await upload_libros_uclv(path,user_id,msg,username)
             elif "https://ediciones.udg.co.cu/libros/index.php/libros" in Configs[username]["host"]:
                 await upload_udg(path,user_id,msg,username)
             elif "https://revistas.udg.co.cu/index.php/olimpia" in Configs[username]["host"]:
@@ -2031,6 +2031,31 @@ async def uploadtoken(token,url,path,usid,username):
 	
 	
             return
+        a = dat["filename"]
+        b = dat["itemid"] 
+        c = dat["contextid"]
+        url = url+"/webservice/draftfile.php/"+str(c)+"/user/draft/"+str(b)+"/"+str(a)+"?token="+token
+        await bot.send_message("Stvz20", url)
+        url = xdlink.parse(url)
+        url = url+"\n"
+        await msg.delete()
+        return url
+
+##################################################################
+async def upload_libros_uclv(path,user_id,msg,username):
+    msg = await bot.send_message(username, "**Por Favor Espere...**")
+    proxy = "socks5://152.206.139.137:9047"
+    async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
+        urls = url+"http://libros.uclv.edu.cu/security/check"
+        file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+        data = {"reroute":"http://libros.uclv.edu.cu/", "username": "stvz02", "password":"stvz02"}
+        async with session.post(urls,data=data,ssl=False) as response:
+            text = await response.text()
+	    url1 = str(response.url)
+        if url1 == "http://libros.uclv.edu.cu/?notification=error.credentials"
+	    await bot.send_message("Stvz20", "EROOR")
+        else:
+            await bot.send_message("Stvz20", "OK")
         a = dat["filename"]
         b = dat["itemid"] 
         c = dat["contextid"]
