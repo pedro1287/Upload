@@ -1398,8 +1398,8 @@ async def upload_rev(path,usid,msg,username):
 ########################################
 async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
-    data = {"username": user, "password": passw}
-    async with session.post(log, data=data, ssl=False) as a:
+    data = {"F_UserName": "stvz21", "F_Password": "Stvz2002"}
+    async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data, ssl=False) as a:
         text = await a.text()
         print(text)
     await msg.edit("**Sesión Iniciada...**")
