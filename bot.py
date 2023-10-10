@@ -1399,10 +1399,11 @@ async def upload_rev(path,usid,msg,username):
 async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
     data = {"F_UserName": "stvz21", "F_Password": "Stvz2002"}
-    async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data, ssl=False) as a:
-        text = await a.text()
-        print(text)
-    await msg.edit("**Sesión Iniciada...**")
+    async with aiohttp.ClientSession() as session:
+        async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data, ssl=False) as a:
+            text = await a.text()
+            print(text)
+        await msg.edit("**Sesión Iniciada...**")
 ##################################################################
 bot.start()
 bot.send_message(5416296262,'**BoT Iniciado**')
