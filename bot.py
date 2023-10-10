@@ -1402,7 +1402,6 @@ async def upload_tesis(path,user_id,msg,username):
     async with aiohttp.ClientSession() as session:
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data, ssl=False) as a:
 	    if not a.status == 303:
-	        await msg.delete()
 	        await msg.edit("**Usuario o Contraseña Erroneos**")
 		return
 	    else:pass
