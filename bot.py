@@ -1402,7 +1402,6 @@ async def upload_tesis(path,user_id,msg,username):
     async with aiohttp.ClientSession() as session:
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data, ssl=False) as a:
             text = await a.text()
-            print(text)
         await msg.edit("**Sesión Iniciada...**")
 ##################################################################
 bot.start()
