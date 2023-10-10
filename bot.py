@@ -178,7 +178,7 @@ def timer(bot, message):
 
 upload = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('🚀✴️Dspace✴️🚀', callback_data="dspace"),
+        InlineKeyboardButton('tesis', callback_data="tesis"),
         InlineKeyboardButton('🉑Revista🆎', callback_data="revista")],
         [InlineKeyboardButton('☁️ Ｕｖｓ.Ｌｔｕ ☁️ 9️⃣ Mb', callback_data="uvs")],
         [InlineKeyboardButton('☁️ ᏀᎢᗰ ☁️ 5️⃣ Mb', callback_data="gtm")],
@@ -221,11 +221,11 @@ async def callback(bot, msg: CallbackQuery):
         id_de_ms[username] = {"msg":"", "proc":""}
         await msg.message.edit(text="**🚫Tarea Cancelada🚫**")
         return
-    elif msg.data == "dspace":
+    elif msg.data == "tesis":
         await msg.message.delete()
         for path in id_path[username]["id"]:
             user_id = id_path[username]["user_id"]
-            await upload_dspace(path,user_id,msg,username) 
+            await upload_tesis(path,user_id,msg,username) 
         return
     elif msg.data == "revista":
         await msg.message.delete()
@@ -1396,21 +1396,13 @@ async def upload_rev(path,usid,msg,username):
                 id_de_ms[username]["proc"] = ""
                 return
 ########################################
-async def upload_libros_uclv(path,user_id,msg,username):
+async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
-    proxy = "socks5://152.206.139.137:9047"
-    async with aiohttp.ClientSession(cookie_jar=aiohttp.CookieJar(unsafe=True), connector=aiohttp_socks.SocksConnector.from_url(proxy)) as session:
-        urls = url+"http://libros.uclv.edu.cu/security/check"
-        file = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-        data = {"reroute":"http://libros.uclv.edu.cu/", "username": "stvz02", "password":"stvz02"}
-        async with session.post(urls,data=data,ssl=False) as response:
-	    text = await response.text()
-	    url1 = str(response.url)
-        if url1 == "http://libros.uclv.edu.cu/?notification=error.credentials":
-	    await bot.send_message("Stvz20", "EROOR")
-        else:
-            await bot.send_message("Stvz20", "OK")
-        return
+    data = {"username": user, "password": passw}
+    async with session.post(log, data=data, ssl=False) as a:
+        text = await a.text()
+        print(text)
+    await msg.edit("**Sesión Iniciada...**")
 ##################################################################
 bot.start()
 bot.send_message(5416296262,'**BoT Iniciado**')
