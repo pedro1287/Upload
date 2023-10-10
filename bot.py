@@ -47,7 +47,7 @@ import threading
 #BoT Configuration Variables
 api_id = 9910861
 api_hash = "86e927460a8998ba6d84e9c13acfda95"
-bot_token = os.environ.get('token')
+bot_token = '6541235079:AAHRfaD_nXeg7zghPNEgiqjoSOIp9nfua8s'
 Channel_Id = -1001919095024
 msg_id = int(os.environ.get('id'))
 bot = Client("bot",api_id=api_id,api_hash=api_hash,bot_token=bot_token)
