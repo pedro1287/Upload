@@ -1457,7 +1457,7 @@ async def upload_tesis(path,user_id,msg,username):
                     try:
                         if "DownloadFile&Id" in u["href"]:
                             url = 'https://tesis.sld.cu/'+u["href"]+">"+url_id
-                            await msg.edit(f"✅ Finalizado ✅ \n\n{file.split('/')[-1]}\n[ .txt ] ⤵️")
+                            #await msg.edit(f"✅ Finalizado ✅ \n\n{file.split('/')[-1]}\n[ .txt ] ⤵️")
                             await bot.send_message(username, url)
                     except:
                         await bot.send_message(username, 'No se pudo obtener el enlace')
