@@ -1406,10 +1406,6 @@ async def upload_tesis(path,user_id,msg,username):
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=payload, headers=headers) as a:
             print(222)
             print(a.url)
-            b = str(a.status)
-            c = str(a.url)
-            await bot.send_message(username, b)
-            await bot.send_message(username, c)
         fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
         async with session.get("https://tesis.sld.cu/index.php?P=EditResource&ID=NEW",headers=headers) as resp:
             raw_data = await resp.read()
@@ -1457,10 +1453,9 @@ async def upload_tesis(path,user_id,msg,username):
                         if "DownloadFile&Id" in u["href"]:
                             url = 'https://tesis.sld.cu/'+u["href"]+">"+url_id
 			    namefile = os.path.basename(path)
-                            #await msg.edit(f"✅ Archivo Subido ✅ \n\nNombre: "+namefile+"\n[ .txt ] ⤵️\n\n"+url)
+                            await msg.edit(f"✅ Archivo Subido ✅ \n\nNombre: "+namefile+"\n[ .txt ] ⤵️\n\n"+url)
                             await bot.send_message(username, url)
-                    except:
-                        await bot.send_message(username, 'No se pudo obtener el enlace')
+                    except:pass
 ##################################################################
 bot.start()
 bot.send_message(5416296262,'**BoT Iniciado**')
