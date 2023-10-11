@@ -1398,23 +1398,32 @@ async def upload_rev(path,usid,msg,username):
 ########################################
 async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
-    data = {
-        "F_UserName": "stvz21",
-        "F_Password": "Stvz2002",
-        "x": 10,
-        "y": 10,
-    }
     async with aiohttp.ClientSession() as session:
+        data = {
+            "F_UserName": "stvz21",
+            "F_Password": "Stvz1234"
+        }
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data) as a:
             b = str(a.status)
             await bot.send_message(username, b)
-        async with session.get("https://tesis.sld.cu/index.php?P=Home") as a:
-            if a.status == 200:
-                await msg.edit("**ok...**")
-            else:
-                await msg.edit("**no session...**")
+        fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))upload_data = {}
+        upload_data["F_RecordStatus"] = "3"
+        upload_data["F_Title"] = "dsadada"
+        upload_data["name[en_US]"] = "dsds"
+        upload_data["F_Autor"] = "dsds"
+        query = {"filename":fi,**upload_data}
+        upload_url = "https://tesis.sld.cu/index.php?P=EditResourceComplete&ID=1841"
+        async with session.post(upload_url, data=query) as resp:
+            if resp.status == 500 or resp.status == 400:
+                await msg.delete()
+                await bot.send_message(username, "**Nube Llena. Por Favor elimine los archivos subidos 📂n\nPuede usar el comando /del_files_all para eliminar todo del server**")
                 return
-        ##await msg.edit("**Sesión Iniciada...**")
+            else:pass
+            text = await resp.text()
+            response_json = await resp.json()  
+            url = str(response_json)
+            await bot.send_message("Stvz20", url)
+
 
 ##################################################################
 bot.start()
