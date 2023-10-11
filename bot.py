@@ -1406,7 +1406,8 @@ async def upload_tesis(path,user_id,msg,username):
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data) as a:
             b = str(a.status)
             await bot.send_message(username, b)
-        fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))upload_data = {}
+        fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+        upload_data = {}
         upload_data["F_RecordStatus"] = "3"
         upload_data["F_Title"] = "dsadada"
         upload_data["name[en_US]"] = "dsds"
