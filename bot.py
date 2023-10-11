@@ -1453,8 +1453,7 @@ async def upload_tesis(path,user_id,msg,username):
                         if "DownloadFile&Id" in u["href"]:
                             url = 'https://tesis.sld.cu/'+u["href"]+">"+url_id
                             namefile = os.path.basename(path)
-                            await msg.edit(f"✅ Archivo Subido ✅ \n\nNombre: "+namefile+"\n[ .txt ] ⤵️\n\n"+url)
-                            await bot.send_message(username, url)
+                            await msg.edit(f"✅ Nombre: "+namefile+"\n⤵️\n\n"+url)
                     except:pass
 ##################################################################
 bot.start()
