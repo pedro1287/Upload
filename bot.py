@@ -1398,9 +1398,14 @@ async def upload_rev(path,usid,msg,username):
 ########################################
 async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
-    data = {"F_UserName": "stvz21", "F_Password": "Stvz2002"}
+    data = {
+        "F_UserName": "stvz21",
+        "F_Password": "Stvz2002",
+        "x": 10,
+        "y": 10,
+    }
     async with aiohttp.ClientSession() as session:
-        async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data, ssl=False) as a:
+        async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data) as a:
             if not a.status == 303:
                 await msg.edit("**Usuario o Contraseña Erroneos**")
                 return
