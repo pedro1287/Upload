@@ -1399,36 +1399,61 @@ async def upload_rev(path,usid,msg,username):
 async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
     async with aiohttp.ClientSession() as session:
-        #payload = payload = {}
-        payload = {}
+        payload = payload = {}
         payload["F_UserName"] = "lazaro03"
         payload["F_Password"] = "Michel03."
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
-        }
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"}
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=payload, headers=headers) as a:
             print(222)
             print(e.url)
             b = str(a.status)
+            c = str(e.url)
             await bot.send_message(username, b)
-        fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
-        upload_data = {}
-        upload_data["F_RecordStatus"] = "3"
-        upload_data["F_Title"] = "dsadada"
-        upload_data["name[en_US]"] = "dsds"
-        upload_data["F_Autor"] = "dsds"
-        query = {"filename":fi,**upload_data}
-        upload_url = "https://tesis.sld.cu/index.php?P=EditResourceComplete&ID=1841"
-        async with session.post(upload_url, data=query) as resp:
-            if resp.status == 500 or resp.status == 400:
-                await msg.delete()
-                await bot.send_message(username, "**Nube Llena. Por Favor elimine los archivos subidos 📂n\nPuede usar el comando /del_files_all para eliminar todo del server**")
-                return
-            else:pass
-            text = await resp.text()
-            response_json = await resp.json()  
-            url = str(response_json)
-            await bot.send_message("Stvz20", url)
+            await bot.send_message(username, c)
+       # fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+        async with session.get(host+"index.php?P=EditResource&ID=NEW",headers=headers) as resp:
+            raw_data = await resp.read()
+            text = raw_data.decode('utf-8', errors='replace')
+            soup = BeautifulSoup(text,"html.parser")
+            f_ids = soup.find("form",attrs={"name":"EditForm"})["action"]
+            url_id = f_ids.split("-")[1]
+            payload = {}
+            payload["F_RecordStatus"] = "3"
+            payload["F_Title"] = ""
+            payload["F_Autor"] = ""
+            payload["PDF"] = "application/octet-stream"
+            payload["F_Description"] = ""
+            payload["F_Anodedefensadelatesis"] = "-1"
+            payload["F_Tutor1"] = ""
+            payload["F_Tutor2"] = ""
+            payload["F_Tutor3"] = ""
+            payload["F_Tutor4"] = ""
+            payload["F_Estado"] = "72"
+            payload["F_Lugar"] = ""
+            payload["F_Departamento"] = ""
+            payload["F_ISBN"] = ""
+            payload["F_Editorial"] = ""
+            payload["F_Tipodefecha"] = "70"
+            payload["F_UrlOficial"] = ""
+            payload["F_Materia[]"] = ""
+            payload["F_Materia[]"] = ""
+            payload["F_Listadescriptores[]"] = ""
+            payload["F_Listadescriptores[]"] = ""
+            payload["F_Numerodelaresolucion"] = ""
+            payload["F_Anoresolucion"] = "-1"
+            payload["F_InformacionAdicional"] = ""
+            payload["F_TextoCompleto"] = "68"
+            payload["Submit"] = "Cargar"
+            payload["F_Autorescorporativos"] = ""
+            payload["F_ComentariosySugerencias"] = ""
+            fi = Progress(file,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))								
+            query = {"Textorestringido":fi,**payload}
+            async with session.post(host+f_ids,data=query,headers=headers) as resp:
+                raw_data = await resp.read()
+                text = raw_data.decode('utf-8', errors='replace')
+                soup = BeautifulSoup(text,"html.parser")
+                urls = soup.find_all("a")
+                await bot.send_message(username, urls)
 
 
 ##################################################################
