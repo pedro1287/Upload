@@ -1405,9 +1405,9 @@ async def upload_tesis(path,user_id,msg,username):
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"}
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=payload, headers=headers) as a:
             print(222)
-            print(e.url)
+            print(a.url)
             b = str(a.status)
-            c = str(e.url)
+            c = str(a.url)
             await bot.send_message(username, b)
             await bot.send_message(username, c)
        # fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
