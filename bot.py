@@ -1402,13 +1402,13 @@ async def upload_tesis(path,user_id,msg,username):
         #payload = payload = {}
         payload = {}
         payload["F_UserName"] = "lazaro03"
-		payload["F_Password"] = "Michel03."
+        payload["F_Password"] = "Michel03."
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
         }
-        async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=data, headers=headers) as a:
+        async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=payload, headers=headers) as a:
             print(222)
-			print(e.url)
+            print(e.url)
             b = str(a.status)
             await bot.send_message(username, b)
         fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
