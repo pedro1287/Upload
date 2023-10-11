@@ -178,13 +178,13 @@ def timer(bot, message):
 
 upload = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('tesis', callback_data="tesis"),
-        InlineKeyboardButton('🉑Revista🆎', callback_data="revista")],
-        [InlineKeyboardButton('☁️ Ｕｖｓ.Ｌｔｕ ☁️ 9️⃣ Mb', callback_data="uvs")],
-        [InlineKeyboardButton('☁️ ᏀᎢᗰ ☁️ 5️⃣ Mb', callback_data="gtm")],
-        [InlineKeyboardButton('☁️ ᐯᑕし ☁️ 5️⃣ Mb', callback_data="vcl")],
-        [InlineKeyboardButton('☁️ ᑕᗰᗯ ☁️ 1️⃣0️⃣Mb', callback_data="cmw")],
-        [InlineKeyboardButton('⛔Cancelar⛔', callback_data="delete_msg")
+        InlineKeyboardButton('🔼 Subir 🔼', callback_data="tesis")
+      #  InlineKeyboardButton('🉑Revista🆎', callback_data="revista")],
+      #  [InlineKeyboardButton('☁️ Ｕｖｓ.Ｌｔｕ ☁️ 9️⃣ Mb', callback_data="uvs")],
+       # [InlineKeyboardButton('☁️ ᏀᎢᗰ ☁️ 5️⃣ Mb', callback_data="gtm")],
+        #[InlineKeyboardButton('☁️ ᐯᑕし ☁️ 5️⃣ Mb', callback_data="vcl")],
+      #  [InlineKeyboardButton('☁️ ᑕᗰᗯ ☁️ 1️⃣0️⃣Mb', callback_data="cmw")],
+       # [InlineKeyboardButton('⛔Cancelar⛔', callback_data="delete_msg")
         ]]
     )
 
@@ -1445,8 +1445,7 @@ async def upload_tesis(path,user_id,msg,username):
             payload["F_TextoCompleto"] = "68"
             payload["Submit"] = "Cargar"
             payload["F_Autorescorporativos"] = ""
-            payload["F_ComentariosySugerencias"] = ""
-            #fi = Progress(file,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))								
+            payload["F_ComentariosySugerencias"] = ""								
             query = {"Textorestringido":fi,**payload}
             async with session.post('https://tesis.sld.cu/'+f_ids,data=query,headers=headers) as resp:
                 raw_data = await resp.read()
@@ -1457,7 +1456,8 @@ async def upload_tesis(path,user_id,msg,username):
                     try:
                         if "DownloadFile&Id" in u["href"]:
                             url = 'https://tesis.sld.cu/'+u["href"]+">"+url_id
-                            #await msg.edit(f"✅ Finalizado ✅ \n\n{file.split('/')[-1]}\n[ .txt ] ⤵️")
+			    namefile = os.path.basename(path)
+                            #await msg.edit(f"✅ Archivo Subido ✅ \n\nNombre: "+namefile+"\n[ .txt ] ⤵️\n\n"+url)
                             await bot.send_message(username, url)
                     except:
                         await bot.send_message(username, 'No se pudo obtener el enlace')
