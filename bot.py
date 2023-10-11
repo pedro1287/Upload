@@ -1410,7 +1410,7 @@ async def upload_tesis(path,user_id,msg,username):
             c = str(a.url)
             await bot.send_message(username, b)
             await bot.send_message(username, c)
-       # fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
+        fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
         async with session.get("https://tesis.sld.cu/index.php?P=EditResource&ID=NEW",headers=headers) as resp:
             raw_data = await resp.read()
             text = raw_data.decode('utf-8', errors='replace')
@@ -1446,9 +1446,9 @@ async def upload_tesis(path,user_id,msg,username):
             payload["Submit"] = "Cargar"
             payload["F_Autorescorporativos"] = ""
             payload["F_ComentariosySugerencias"] = ""
-            fi = Progress(file,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))								
+            #fi = Progress(file,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))								
             query = {"Textorestringido":fi,**payload}
-            async with session.post(host+f_ids,data=query,headers=headers) as resp:
+            async with session.post('https://tesis.sld.cu/'+f_ids,data=query,headers=headers) as resp:
                 raw_data = await resp.read()
                 text = raw_data.decode('utf-8', errors='replace')
                 soup = BeautifulSoup(text,"html.parser")
