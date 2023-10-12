@@ -14,3 +14,4 @@ pymegatools
 py7zr
 urllib3==1.26.13
 pathlib==1.0.1
+Pyrogram==2.0.62
