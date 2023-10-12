@@ -3,3 +3,7 @@ aiofiles
 aiohttp_socks
 requests[socks]
 yarl==1.8.1
+websockets==10.4
+telebot==0.0.4
+Telethon==1.25.4
+TgCrypto==1.2.3
