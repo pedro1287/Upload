@@ -15,3 +15,5 @@ py7zr
 urllib3==1.26.13
 pathlib==1.0.1
 Pyrogram==2.0.62
+bs4==0.0.1
+beautifulsoup4==4.11.1
