@@ -5,7 +5,6 @@ import asyncio
 import tgcrypto
 import aiohttp
 import aiohttp_socks
-import yt_dlp
 import os
 import aiohttp
 import re
@@ -41,7 +40,6 @@ from py7zr import SevenZipFile
 from py7zr import FILTER_COPY
 from zipfile import ZipFile
 from multivolumefile import MultiVolume
-import xdlink
 import threading
 
 #BoT Configuration Variables
