@@ -11,3 +11,6 @@ requests==2.28.1
 requests-toolbelt==0.10.1
 psutil
 pymegatools
+py7zr
+urllib
+pathlib
