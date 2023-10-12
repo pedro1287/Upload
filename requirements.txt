@@ -17,4 +17,3 @@ ujson==5.5.0
 urllib3==1.26.13
 pathlib==1.0.1
 psutil==5.9.4
-pathlib==1.0.1
