@@ -12,7 +12,6 @@ import requests
 import json
 import psutil
 import platform
-import pymegatools
 from pyrogram import Client , filters
 from pyrogram.types import Message, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from json import loads,dumps
@@ -83,12 +82,12 @@ def uploadfile_progres(chunk,filesize,start,filename,message):
     try:
        msg+=update_progress_bar(chunk,filesize)+ "  " + sizeof_fmt(mbs)+"/s 🚀\n"
     except:pass
-    msg+= f"**📤Subido: {sizeof_fmt(chunk)}\n**"
-    msg+= f"**💾 Total:  {sizeof_fmt(filesize)}**\n\n"
-    msg+= f"**Gracias Por Elegir @Stvz_Upload_bot ❤️**\n\n"
-    msg+= f"**⌛UpTimeBoT: {uptime}**"
-    msg+= f"**System Info**\n"
-    msg += f"➣CPU Usado: **{psutil.cpu_percent()}%**\n"
+    msg+= f"**📤 Subido: {sizeof_fmt(chunk)}\n**"
+    msg+= f"**💾  Total: {sizeof_fmt(filesize)}**\n\n"
+ #   msg+= f"**Gracias Por Elegir @Stvz_Upload_bot ❤️**\n\n"
+  #  msg+= f"**⌛UpTimeBoT: {uptime}**"
+  #  msg+= f"**System Info**\n"
+ #   msg += f"➣CPU Usado: **{psutil.cpu_percent()}%**\n"
  #   msg+= f"➣RAM ~~~Total: **{sizeof_fmt(svmem.total)} | Free: {sizeof_fmt(svmem.available)} | Usada: {sizeof_fmt(svmem.used)}**\n"
     global seg
     if seg != localtime().tm_sec: 
