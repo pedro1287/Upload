@@ -1453,6 +1453,7 @@ async def upload_tesis(path,user_id,msg,username):
                             size = os.path.getsize(path)/(1024 * 1024)
                             size = round(size, 2)
                             ##await msg.edit(f"✅ Nombre: "+namefile+"\n⤵️\n\n"+url)
+                            await msg.delete()
                             with open(namefile+".txt","w") as f:
                                 f.write(url)
                             await bot.send_document(username, namefile+".txt", thumb="logo.jpg", caption=f"**✅ Archivo Subido...\nNombre: {namefile}\nTamaño: {size} Mb\n**"+url)
