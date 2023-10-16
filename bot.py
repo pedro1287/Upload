@@ -347,7 +347,7 @@ def files_formatter(path,username):
             i += 1
         else:
         #    i += 1
-            msg+=f"**╭➣❮ /up_{i} ❯─❮ /rm_{i} ❯─❮ /dl_{i} ❯\n╰➣ {sizeof_fmt(size)} - ** `📃 {n}`\n"
+            msg+=f"**╭➣❮ /up_{i} ❯─❮ /rm_{i} ❯─❮ /dl_{i} ❯\n╰➣ {sizeof_fmt(size)} - ** `📃 {n}`\n\n"
             i += 1
     #msg+= f"\n**Eliminar Todo**\n    **/deleteall**"
     return msg , final
@@ -1450,7 +1450,12 @@ async def upload_tesis(path,user_id,msg,username):
                         if "DownloadFile&Id" in u["href"]:
                             url = 'https://tesis.sld.cu/'+u["href"]+">"+url_id
                             namefile = os.path.basename(path)
-                            await msg.edit(f"✅ Nombre: "+namefile+"\n⤵️\n\n"+url)
+                            size = os.path.getsize(path)/(1024 * 1024)
+                            size = round(size, 2)
+                            ##await msg.edit(f"✅ Nombre: "+namefile+"\n⤵️\n\n"+url)
+                            with open(namefile+".txt","w") as f:
+                                f.write(url)
+                            await bot.send_document(username, namefile+".txt", thumb="logo.jpg", caption=f"**✅ Archivo Subido...\nNombre: {namefile}\nTamaño: {size} Mb\n**"+url)
                     except:pass
 ##################################################################
 bot.start()
