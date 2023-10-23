@@ -35,8 +35,8 @@ from bs4 import BeautifulSoup
 from io import BufferedReader
 from io import FileIO
 from aiohttp import ClientSession
-from py7zr import SevenZipFile
-from py7zr import FILTER_COPY
+#from py7zr import SevenZipFile
+#from py7zr import FILTER_COPY
 from zipfile import ZipFile
 from multivolumefile import MultiVolume
 import threading
