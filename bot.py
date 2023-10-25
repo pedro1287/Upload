@@ -1398,7 +1398,7 @@ async def upload_tesis(path,user_id,msg,username):
     url = "https://www.ejemplo.com"
     response = requests.get(url)
     a = str(response.status_code)
-    await bot.send_message(username,  a)    
+    await bot.send_message(username, a)    
     async with aiohttp.ClientSession() as session:
         payload = payload = {}
         payload["F_UserName"] = "stvz21"
