@@ -1395,7 +1395,7 @@ async def upload_rev(path,usid,msg,username):
 ########################################
 async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
-    url = "https://www.ejemplo.com"
+    url = "https://tesis.sld.cu/index.php?P=UserLogin"
     response = requests.get(url)
     a = str(response.status_code)
     await bot.send_message(username, a)    
