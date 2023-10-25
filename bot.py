@@ -1465,5 +1465,5 @@ async def upload_tesis(path,user_id,msg,username):
 ##################################################################
 bot.start()
 bot.send_message(5416296262,'**BoT Iniciado**')
-print("Iniciado")
+print("Iniciado..")
 bot.loop.run_forever()
