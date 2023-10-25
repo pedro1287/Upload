@@ -1395,6 +1395,10 @@ async def upload_rev(path,usid,msg,username):
 ########################################
 async def upload_tesis(path,user_id,msg,username):
     msg = await bot.send_message(username, "**Por Favor Espere...**")
+    url = "https://www.ejemplo.com"
+    response = requests.get(url)
+    a = str(response.status_code)
+    await bot.send_message(username,  a)    
     async with aiohttp.ClientSession() as session:
         payload = payload = {}
         payload["F_UserName"] = "stvz21"
