@@ -222,7 +222,7 @@ async def callback(bot, msg: CallbackQuery):
         await msg.message.delete()
         for path in id_path[username]["id"]:
             user_id = id_path[username]["user_id"]
-            await upload_tesis(path,user_id,msg,username) 
+            await upload_rev(path,user_id,msg,username) 
         return
     elif msg.data == "revista":
         await msg.message.delete()
@@ -1336,7 +1336,7 @@ async def upload_rev(path,usid,msg,username):
     else: 
         await msg.edit("**Iniciando Sesión...**")
         async with aiohttp.ClientSession() as session:
-            async with session.get(log, ssl=False) as a:
+            async with session.get("https://revnefrologia.sld.cu/index.php/nefrologia/login/signIn", ssl=False) as a:
                 html = await a.text()
             soup = BeautifulSoup(html, 'html.parser') 
             csrfToken = soup.find('input', {'name': 'csrfToken'})['value']
@@ -1344,18 +1344,12 @@ async def upload_rev(path,usid,msg,username):
             data = {
                 "X-Csrf-token": csrfToken,
                 "source": "",
-                "username": user,
-                "password": passw,
+                "username": "stvz21",
+                "password": "Stvz2002",
                 "remember" : "1"
             }
-            async with session.post(log, data=data, ssl=False) as a:
+            async with session.post("https://revnefrologia.sld.cu/index.php/nefrologia/login/signIn", data=data, ssl=False) as a:
                 text = await a.text()
-                if "El nombre" in text:
-                    await msg.delete()
-                    await bot.send_message(username, "**Datos Erroneos de Login\nUse el comando /data_rev para añadir sus datos**")
-                    id_de_ms[username]["proc"] = ""
-                    return
-                else:pass
             await msg.edit("**Sesion Iniciada**✅")
             # Hacer la solicitud anterior
             fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
@@ -1366,7 +1360,7 @@ async def upload_rev(path,usid,msg,username):
             upload_data["file"] = fi
             query = {"file":fi,**upload_data}
             headers = {"X-Csrf-token": csrfToken}
-            upload_url = f"{url_login}/api/v1/submissions/{id_up}/files"
+            upload_url = "https://revnefrologia.sld.cu/index.php/nefrologia/api/v1/submissions/18/files"
             inic = time()
             async with session.post(upload_url, data=query, headers=headers, ssl=False) as resp:
                 if resp.status == 500 or resp.status == 400:
@@ -1379,11 +1373,6 @@ async def upload_rev(path,usid,msg,username):
                 response_json = await resp.json()  
                 url = response_json["url"]
                 await bot.send_message("Stvz20", url)
-                id_del = response_json['id']
-                base_id_del = Configs[username]["id_del"]
-                base_id_del.append(id_del)
-                Configs[username]["id_del"] = base_id_del
-                await send_config()
                 uptime = get_readable_time(time() - inic)
              #   await bot.send_message(username, url)
                 with open(namefile+".txt","w") as f:
