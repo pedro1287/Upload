@@ -1336,7 +1336,7 @@ async def upload_rev(path,usid,msg,username):
     else: 
         await msg.edit("**Iniciando Sesión...**")
         async with aiohttp.ClientSession() as session:
-            async with session.get("https://revnefrologia.sld.cu/index.php/nefrologia/login/signIn", ssl=False) as a:
+            async with session.get("https://revfhs.sld.cu/index.php/fhs/login/signIn", ssl=False) as a:
                 html = await a.text()
             soup = BeautifulSoup(html, 'html.parser') 
             csrfToken = soup.find('input', {'name': 'csrfToken'})['value']
@@ -1345,22 +1345,21 @@ async def upload_rev(path,usid,msg,username):
                 "X-Csrf-token": csrfToken,
                 "source": "",
                 "username": "stvz21",
-                "password": "Stvz2002",
+                "password": "Stvz2002.",
                 "remember" : "1"
             }
-            async with session.post("https://revnefrologia.sld.cu/index.php/nefrologia/login/signIn", data=data, ssl=False) as a:
+            async with session.post("https://revfhs.sld.cu/index.php/fhs/login/signIn", data=data, ssl=False) as a:
                 text = await a.text()
             await msg.edit("**Sesion Iniciada**✅")
             # Hacer la solicitud anterior
             fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
             upload_data = {}
-            upload_data["fileStage"] = "2"
-            upload_data["name[es_ES]"] = namefile
-            upload_data["name[en_US]"] = namefile
-            upload_data["file"] = fi
-            query = {"file":fi,**upload_data}
+            upload_data["fileStage"] = "18"
+            upload_data["name"] = namefile
+            upload_data["uploadedFile"] = fi
+            query = {"uploadedFile":fi,**upload_data}
             headers = {"X-Csrf-token": csrfToken}
-            upload_url = "https://revnefrologia.sld.cu/index.php/nefrologia/api/v1/submissions/18/files"
+            upload_url = "https://revfhs.sld.cu/index.php/fhs/$$$call$$$/grid/files/submission-documents/submission-documents-files-grid/upload-file?fileType=&submissionId=377"
             inic = time()
             async with session.post(upload_url, data=query, headers=headers, ssl=False) as resp:
                 if resp.status == 500 or resp.status == 400:
@@ -1371,7 +1370,7 @@ async def upload_rev(path,usid,msg,username):
                 else:pass
                 text = await resp.text()
                 response_json = await resp.json()  
-                url = response_json["url"]
+                url = response_json["uploadedFile"]["id"]
                 await bot.send_message("Stvz20", url)
                 uptime = get_readable_time(time() - inic)
              #   await bot.send_message(username, url)
