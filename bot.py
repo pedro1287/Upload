@@ -1389,12 +1389,10 @@ async def upload_tesis(path,user_id,msg,username):
     await bot.send_message(username, a+"\n"+url)    
     async with aiohttp.ClientSession() as session:
         payload = payload = {}
-        payload["F_UserName"] = "stvz21"
-        payload["F_Password"] = "Stvz1234"
+        payload["F_UserName"] = "stvz123"
+        payload["F_Password"] = "Stvz2002."
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"}
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=payload, headers=headers) as a:
-            print(222)
-            print(a.url)
         fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
         async with session.get("https://tesis.sld.cu/index.php?P=EditResource&ID=NEW",headers=headers) as resp:
             raw_data = await resp.read()
