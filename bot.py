@@ -1395,7 +1395,6 @@ async def upload_tesis(path,user_id,msg,username):
         async with session.post("https://tesis.sld.cu/index.php?P=UserLogin", data=payload, headers=headers) as a:
             print(222)
             print(a.url)
-        fi = Progress(path,lambda current,total,timestart,filename:
         fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
         async with session.get("https://tesis.sld.cu/index.php?P=EditResource&ID=NEW",headers=headers) as resp:
             raw_data = await resp.read()
