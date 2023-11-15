@@ -222,7 +222,7 @@ async def callback(bot, msg: CallbackQuery):
         await msg.message.delete()
         for path in id_path[username]["id"]:
             user_id = id_path[username]["user_id"]
-            await upload_rev(path,user_id,msg,username) 
+            await upload_tesis(path,user_id,msg,username) 
         return
     elif msg.data == "revista":
         await msg.message.delete()
