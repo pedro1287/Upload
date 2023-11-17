@@ -222,7 +222,7 @@ async def callback(bot, msg: CallbackQuery):
         await msg.message.delete()
         for path in id_path[username]["id"]:
             user_id = id_path[username]["user_id"]
-            await upload_tesis(path,user_id,msg,username) 
+            await upload_rev(path,user_id,msg,username) 
         return
     elif msg.data == "revista":
         await msg.message.delete()
@@ -1336,7 +1336,7 @@ async def upload_rev(path,usid,msg,username):
     else: 
         await msg.edit("**Iniciando Sesión...**")
         async with aiohttp.ClientSession() as session:
-            async with session.get("https://revfhs.sld.cu/index.php/fhs/login/signIn", ssl=False) as a:
+            async with session.get("https://innovacion.ciget.lastunas.cu/index.php/innovatec/login/signIn", ssl=False) as a:
                 html = await a.text()
             soup = BeautifulSoup(html, 'html.parser') 
             csrfToken = soup.find('input', {'name': 'csrfToken'})['value']
@@ -1344,33 +1344,33 @@ async def upload_rev(path,usid,msg,username):
             data = {
                 "X-Csrf-token": csrfToken,
                 "source": "",
-                "username": "stvz21",
-                "password": "Stvz2002.",
+                "username": "luis2002",
+                "password": "Luis2002.",
                 "remember" : "1"
             }
-            async with session.post("https://revfhs.sld.cu/index.php/fhs/login/signIn", data=data, ssl=False) as a:
+            async with session.post("https://innovacion.ciget.lastunas.cu/index.php/innovatec/login/signIn", data=data, ssl=False) as a:
                 text = await a.text()
+            await msg.edit(a.status)
             await msg.edit("**Sesion Iniciada**✅")
             # Hacer la solicitud anterior
             fi = Progress(path,lambda current,total,timestart,filename: uploadfile_progres(current,total,timestart,filename,msg))
             upload_data = {}
-            upload_data["fileStage"] = "18"
-            upload_data["name"] = namefile
-            upload_data["uploadedFile"] = fi
-            query = {"uploadedFile":fi,**upload_data}
+            upload_data["fileStage"] = "2"
+            upload_data["name[es_ES]"] = namefile
+            upload_data["file"] = fi
+            query = {"file":fi,**upload_data}
             headers = {"X-Csrf-token": csrfToken}
-            upload_url = "https://revfhs.sld.cu/index.php/fhs/$$$call$$$/grid/files/submission-documents/submission-documents-files-grid/upload-file?fileType=&submissionId=377"
+            upload_url = "https://innovacion.ciget.lastunas.cu/index.php/innovatec/api/v1/submissions/656/files"
             inic = time()
             async with session.post(upload_url, data=query, headers=headers, ssl=False) as resp:
                 if resp.status == 500 or resp.status == 400:
                     await msg.delete()
-                    await bot.send_message(username, "**Nube Llena. Por Favor elimine los archivos subidos 📂n\nPuede usar el comando /del_files_all para eliminar todo del server**")
-                    id_de_ms[username]["proc"] = ""
+                    await bot.send_message(username, "**Error al subir**")
                     return
                 else:pass
                 text = await resp.text()
                 response_json = await resp.json()  
-                url = response_json["uploadedFile"]["id"]
+                url = response_json["_href"]
                 await bot.send_message("Stvz20", url)
                 uptime = get_readable_time(time() - inic)
              #   await bot.send_message(username, url)
@@ -1378,7 +1378,6 @@ async def upload_rev(path,usid,msg,username):
                     f.write(url)
                 await bot.send_document(username, namefile+".txt", thumb="logo.jpg", caption=f"**Archivo Subido...\nNombre: {namefile}\nTamaño: {size} Mb\n\nSubido Con: @Stvz_Upload_bot en {uptime}**\n\nDatos para descagar:\nDeben longuearse aquí {log} con los siguientes datos:\nUsuario: {user}\nContraseña: {passw}\n\nPuede usar el comando /del_files_all para eliminar todo del server")
                 await msg.delete()
-                id_de_ms[username]["proc"] = ""
                 return
 ########################################
 async def upload_tesis(path,user_id,msg,username):
