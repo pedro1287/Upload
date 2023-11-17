@@ -1249,25 +1249,13 @@ async def upload_dspace(path,usid,msg,username):
                     
                 
 async def upload_rev(path,usid,msg,username):
-    if "id_del" in Configs[username]:pass
-    else:
-        Configs[username]["id_del"] = [] 
-        await send_config()
     msg = await bot.send_message(username, "**Iniciando**")
     namefile = os.path.basename(path)
-    id_de_ms[username] = {"msg":msg, "pat":namefile, "proc":"Up"}
-    acuser = Configs[username]["user"]
-    user = str(Configs[username]["user"])
-    passw = str(Configs[username]["pasw"])
-    id_up = str(Configs[username]["id"])
     zips = str(Configs[username]["zips"])
-    url_login = str(Configs[username]["host"])
-    log = url_login+"/login/signIn"
     filesize = Path(path).stat().st_size
     zipssize = 1024*1024*int(zips)
     size = os.path.getsize(path)/(1024 * 1024)
     size = round(size, 2)
-    host = str(Configs["up_dspace"]["host"])
     if filesize-1048>zipssize:
         urls = " "
         await msg.edit("**Iniciando Sesión...**")
