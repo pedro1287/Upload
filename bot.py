@@ -44,8 +44,8 @@ import threading
 #BoT Configuration Variables
 api_id = 10181262
 api_hash = "86e927460a8998ba6d84e9c13acfda95"
-bot_token = '5897771276:AAHX0OVFhvS_acVL7BWKR2mHZRBKcONZixw'
-#Channel_Id = -1001919095024
+bot_token = '5454285999:AAHX1_Q0glN2qypzZfT6H74KwEdUO_NLnTY'
+#Channel_Id = -4090858909
 #msg_id = int(os.environ.get('id'))
 bot = Client("bot",api_id=api_id,api_hash=api_hash,bot_token=bot_token)
 boss = ['UHTRED_OF_BEBBANBURG','JAGB2021', "Maykol0102"]#usuarios supremos
